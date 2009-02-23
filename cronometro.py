@@ -11,10 +11,10 @@ class Clock(object):
         frame.pack()
 
         self.labelstr = StringVar()
-        self.label = Label(frame, textvariable=self.labelstr)#, width=60, height=5)
+        self.label = Label(frame, textvariable=self.labelstr, fg='#198931', font=('Helvetica', '48'))
         self.label.pack()
 
-        self.start = Button(frame, text='Comecar', command=self.start)
+        self.start = Button(frame, text='Começar', command=self.start)
         self.start.pack(side=LEFT)
 
         self.stop = Button(frame, text='Parar', command=self.stop)
@@ -37,9 +37,11 @@ class Clock(object):
 
     def update(self):
         if self.running:
-            if self.seconds <= 30:
-                self.label['fg']='red'
-            new_str = '%02d:%02d' % ((self.seconds /60), (self.seconds % 60))
+            if 0 < self.seconds <= 30:
+                self.label['fg']='#efbf16'
+            elif self.seconds <= 0:
+                self.label['fg']='#d70505'
+            new_str = '%02d:%02d' % ((self.seconds / 60), (self.seconds % 60))
             self.labelstr.set(new_str)
             self.label.after(1000, self.update)
             self.seconds -= 1
@@ -50,7 +52,7 @@ class Clock(object):
     def reset(self):
         self.running = False
         self.seconds = 60 * 1
-        self.label['fg']='black'
+        self.label['fg']='#198931'
         new_str = '%02d:%02d' % ((self.seconds /60), (self.seconds % 60))
         self.labelstr.set(new_str)
 
