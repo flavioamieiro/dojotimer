@@ -41,6 +41,7 @@ class Clock(object):
                 self.label['fg']='#efbf16'
             elif self.seconds <= 0:
                 self.label['fg']='#d70505'
+                self.running = False
             new_str = '%02d:%02d' % ((self.seconds / 60), (self.seconds % 60))
             self.labelstr.set(new_str)
             self.label.after(1000, self.update)
