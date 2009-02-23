@@ -6,29 +6,40 @@ import thread
 class Clock(object):
 
     def __init__(self, master):
-        
-        frame = Frame(master)
-        frame.pack()
 
+        # Crio o frame principal.
+        self.frame = Frame(master)
+        self.frame.pack()
+
+        # Os outros widgets ficam num método separado
+        self.create_widgets()
+
+        # Defino alguns valores padrão.
+        self.running = False
+        self.default_time = 1 # Tempo padrão (em minutos)
+        self.seconds = 60 * self.default_time
+        self.labelstr.set('%02d:%02d' % ((self.seconds /60), (self.seconds % 60)))
+
+    def create_widgets(self):
+
+        # Crio o label. self.labelstr é o que vai ser usado como texto. Quando for atualizada com o
+        # método .set('str') o label vai ser atualizado.
         self.labelstr = StringVar()
-        self.label = Label(frame, textvariable=self.labelstr, fg='#198931', font=('Helvetica', '48'))
+        self.label = Label(self.frame, textvariable=self.labelstr, fg='#198931', font=('Helvetica', '48'))
         self.label.pack()
 
-        self.start = Button(frame, text='Começar', command=self.start)
+        # Crio alguns botões
+        self.start = Button(self.frame, text='Começar', command=self.start)
         self.start.pack(side=LEFT)
 
-        self.stop = Button(frame, text='Parar', command=self.stop)
+        self.stop = Button(self.frame, text='Parar', command=self.stop)
         self.stop.pack(side=LEFT)
 
-        self.reset = Button(frame, text='Zerar', command=self.reset)
+        self.reset = Button(self.frame, text='Zerar', command=self.reset)
         self.reset.pack(side=LEFT)
 
-        self.quit = Button(frame, text='Sair', command=frame.quit)
+        self.quit = Button(self.frame, text='Sair', command=self.frame.quit)
         self.quit.pack(side=LEFT)
-
-        self.running = False
-        self.seconds = 60 * 1
-        self.labelstr.set('%02d:%02d' % ((self.seconds /60), (self.seconds % 60)))
 
     def start(self):
         if not self.running:
@@ -52,7 +63,7 @@ class Clock(object):
 
     def reset(self):
         self.running = False
-        self.seconds = 60 * 1
+        self.seconds = 60 * self.default_time
         self.label['fg']='#198931'
         new_str = '%02d:%02d' % ((self.seconds /60), (self.seconds % 60))
         self.labelstr.set(new_str)
