@@ -7,9 +7,13 @@ class Clock(object):
 
     def __init__(self, master):
 
+        self.master = master
+
         # Crio o frame principal.
-        self.frame = Frame(master)
+        self.frame = Frame(self.master)
         self.frame.pack()
+        
+        self.master.title("Dojo Rio")
 
         # Os outros widgets ficam num método separado
         self.create_widgets()
@@ -53,6 +57,9 @@ class Clock(object):
             elif self.seconds <= 0:
                 self.label['fg']='#d70505'
                 self.running = False
+                for i in range(10):
+                    self.master.bell()
+                self.master.lift()
             new_str = '%02d:%02d' % ((self.seconds / 60), (self.seconds % 60))
             self.labelstr.set(new_str)
             self.label.after(1000, self.update)
