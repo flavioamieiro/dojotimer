@@ -1,11 +1,10 @@
 #-*- coding: utf-8 -*-
 from Tkinter import *
 import time
-import thread
 
 class Clock(object):
 
-    def __init__(self, master):
+    def __init__(self, master, default_time=1):
 
         self.master = master
 
@@ -20,7 +19,7 @@ class Clock(object):
 
         # Defino alguns valores padrão.
         self.running = False
-        self.default_time = 1 # Tempo padrão (em minutos)
+        self.default_time = default_time # Tempo padrão (em minutos)
         self.seconds = 60 * self.default_time
         self.labelstr.set('%02d:%02d' % ((self.seconds /60), (self.seconds % 60)))
 
@@ -52,13 +51,15 @@ class Clock(object):
 
     def update(self):
         if self.running:
+
             if 0 < self.seconds <= 30:
                 self.label['fg']='#efbf16'
             elif self.seconds <= 0:
                 self.label['fg']='#d70505'
                 self.running = False
-                for i in range(10):
+                for i in range(5):
                     self.master.bell()
+                    time.sleep(1)
                 self.master.lift()
             new_str = '%02d:%02d' % ((self.seconds / 60), (self.seconds % 60))
             self.labelstr.set(new_str)
@@ -78,6 +79,6 @@ class Clock(object):
 
 if __name__ == '__main__':
     root = Tk()
-    clock = Clock(root)
+    clock = Clock(root, 7)
 
     root.mainloop()
