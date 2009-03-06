@@ -16,6 +16,7 @@ class Clock(object):
         self.top = self.frame.winfo_toplevel()
 
         self.top.title("Dojo Rio")
+        self.top.wm_attributes('-topmost', 1)
 
         # Os outros widgets ficam num método separado
         self.create_widgets()
@@ -60,7 +61,6 @@ class Clock(object):
             elif self.seconds <= 0:
                 self.label['fg']='#d70505'
                 self.running = False
-                self.top.lift()
             new_str = '%02d:%02d' % ((self.seconds / 60), (self.seconds % 60))
             self.labelstr.set(new_str)
             self.label.after(1000, self.update)
