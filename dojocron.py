@@ -6,13 +6,16 @@ class Clock(object):
 
     def __init__(self, master, default_time=1):
 
-        self.master = master
 
         # Crio o frame principal.
-        self.frame = Frame(self.master)
+        self.frame = Frame(master)
         self.frame.pack()
         
-        self.master.title("Dojo Rio")
+
+        # Pego a janela TopLevel
+        self.top = self.frame.winfo_toplevel()
+
+        self.top.title("Dojo Rio")
 
         # Os outros widgets ficam num método separado
         self.create_widgets()
@@ -57,10 +60,7 @@ class Clock(object):
             elif self.seconds <= 0:
                 self.label['fg']='#d70505'
                 self.running = False
-                for i in range(5):
-                    self.master.bell()
-                    time.sleep(1)
-                self.master.lift()
+                self.top.lift()
             new_str = '%02d:%02d' % ((self.seconds / 60), (self.seconds % 60))
             self.labelstr.set(new_str)
             self.label.after(1000, self.update)
@@ -79,6 +79,6 @@ class Clock(object):
 
 if __name__ == '__main__':
     root = Tk()
-    clock = Clock(root, 7)
+    clock = Clock(root, 1)
 
     root.mainloop()
