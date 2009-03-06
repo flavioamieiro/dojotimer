@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 #
 #
-# DojoCron - a simple stopwatch for Coding Dojos.
+# DojoTimer - a simple stopwatch for Coding Dojos.
 #
 # Copyright (C) 2008 Flávio Amieiro <amieiro.flavio@gmail.com>
 #
