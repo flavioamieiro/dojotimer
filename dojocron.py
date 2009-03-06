@@ -15,8 +15,10 @@ class Clock(object):
         # Pego a janela TopLevel
         self.top = self.frame.winfo_toplevel()
 
+        # Modifico um pouco a janela
         self.top.title("Dojo Rio")
-        self.top.wm_attributes('-topmost', 1)
+        self.top.attributes('-topmost', 1)
+        self.top.resizable(0, 0)
 
         # Os outros widgets ficam num método separado
         self.create_widgets()
