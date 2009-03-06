@@ -55,27 +55,29 @@ class Clock(object):
         self.label = Label(self.frame, textvariable=self.labelstr, fg='#198931', font=('Helvetica', '48'))
         self.label.pack()
 
-        # Crio alguns botões
-        self.start = Button(self.frame, text='Começar', command=self.start)
-        self.start.pack(side=LEFT)
+        # Crio alguns botões - precisei adicionar _btn ao nome por que esta tendo conflitos com os nomes
+        # dos métodos
+        self.start_btn = Button(self.frame, text='Começar', command=self.start)
+        self.start_btn.pack(side=LEFT)
 
-        self.stop = Button(self.frame, text='Parar', command=self.stop)
-        self.stop.pack(side=LEFT)
+        self.stop_btn = Button(self.frame, text='Parar', command=self.stop)
+        self.stop_btn.pack(side=LEFT)
 
-        self.reset = Button(self.frame, text='Zerar', command=self.reset)
-        self.reset.pack(side=LEFT)
+        self.reset_btn = Button(self.frame, text='Zerar', command=self.reset)
+        self.reset_btn.pack(side=LEFT)
 
-        self.quit = Button(self.frame, text='Sair', command=self.frame.quit)
-        self.quit.pack(side=LEFT)
+        self.quit_btn = Button(self.frame, text='Sair', command=self.frame.quit)
+        self.quit_btn.pack(side=LEFT)
 
     def start(self):
+        if not self.seconds:
+            self.reset()
         if not self.running:
             self.running = True
             self.update()
 
     def update(self):
         if self.running:
-
             if 0 < self.seconds <= 30:
                 self.label['fg']='#efbf16'
             elif self.seconds <= 0:
@@ -84,7 +86,7 @@ class Clock(object):
             new_str = '%02d:%02d' % ((self.seconds / 60), (self.seconds % 60))
             self.labelstr.set(new_str)
             self.label.after(1000, self.update)
-            self.seconds -= 1
+            if self.seconds: self.seconds -= 1
     
     def stop(self):
         self.running = False
