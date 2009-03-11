@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 #
 #
-# DojoTimer - a simple stopwatch for Coding Dojos.
+# DojoTimer - a simple timer for Coding Dojos.
 #
 # Copyright (C) 2008 Flávio Amieiro <amieiro.flavio@gmail.com>
 #
@@ -24,49 +24,48 @@ class Clock(object):
 
     def __init__(self, master, default_time=1):
 
-
-        # Crio o frame principal.
+        # Create a frame
         self.frame = Frame(master)
         self.frame.pack()
         
 
-        # Pego a janela TopLevel
+        # Get the TopLevel window
         self.top = self.frame.winfo_toplevel()
 
-        # Modifico um pouco a janela
-        self.top.title("Dojo Rio")
-        self.top.attributes('-topmost', 1)
-        self.top.resizable(0, 0)
+        # Change some of it's attributes
+        self.top.title("DojoTimer") # change the title
+        self.top.attributes('-topmost', 1) # make it always on top XXX-Needs testing on windows
+        self.top.resizable(0, 0) # make it unresizeable
 
-        # Os outros widgets ficam num método separado
-        self.create_widgets()
+        # A separate method is responsible for creating the other widgets
+        self._create_widgets()
 
-        # Defino alguns valores padrão.
+        # Some default values
         self.running = False
         self.default_time = default_time # Tempo padrão (em minutos)
         self.seconds = 60 * self.default_time
         self.labelstr.set('%02d:%02d' % ((self.seconds /60), (self.seconds % 60)))
 
-    def create_widgets(self):
-
-        # Crio o label. self.labelstr é o que vai ser usado como texto. Quando for atualizada com o
-        # método .set('str') o label vai ser atualizado.
+    def _create_widgets(self):
+        """ This function creates some widgets for the timer."""
+        # self.labelstr is going to be used as text in the label (which shows the time left).
+        # When this variable's value is modified (with the method .set('str')) the label 
+        # changes on the fly.
         self.labelstr = StringVar()
         self.label = Label(self.frame, textvariable=self.labelstr, fg='#198931', font=('Helvetica', '48'))
         self.label.pack()
 
-        # Crio alguns botões - precisei adicionar _btn ao nome por que esta tendo conflitos com os nomes
-        # dos métodos
-        self.start_btn = Button(self.frame, text='Começar', command=self.start)
+        # Some buttons
+        self.start_btn = Button(self.frame, text="Start", command=self.start)
         self.start_btn.pack(side=LEFT)
 
-        self.stop_btn = Button(self.frame, text='Parar', command=self.stop)
+        self.stop_btn = Button(self.frame, text='Stop', command=self.stop)
         self.stop_btn.pack(side=LEFT)
 
-        self.reset_btn = Button(self.frame, text='Zerar', command=self.reset)
+        self.reset_btn = Button(self.frame, text='Reset', command=self.reset)
         self.reset_btn.pack(side=LEFT)
 
-        self.quit_btn = Button(self.frame, text='Sair', command=self.frame.quit)
+        self.quit_btn = Button(self.frame, text='Quit', command=self.frame.quit)
         self.quit_btn.pack(side=LEFT)
 
     def start(self):
