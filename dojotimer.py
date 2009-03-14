@@ -70,8 +70,10 @@ class Clock(object):
 
     def start(self):
         if not self.seconds:
+            self.top.iconify()
             self.reset()
         if not self.running:
+            self.top.iconify()
             self.running = True
             self.update()
 
@@ -80,6 +82,7 @@ class Clock(object):
             if 0 < self.seconds <= 30:
                 self.label['fg']='#efbf16'
             elif self.seconds <= 0:
+                self.top.deiconify()
                 self.label['fg']='#d70505'
                 self.running = False
             new_str = '%02d:%02d' % ((self.seconds / 60), (self.seconds % 60))
