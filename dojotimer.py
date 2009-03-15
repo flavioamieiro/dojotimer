@@ -38,7 +38,7 @@ class Clock(object):
         self.top.resizable(0, 0) # make it unresizeable
 
         # A separate method is responsible for creating the other widgets
-        self._create_widgets()
+        self.__create_widgets()
 
         # Some default values
         self.running = False
@@ -46,7 +46,7 @@ class Clock(object):
         self.seconds = 60 * self.default_time
         self.labelstr.set('%02d:%02d' % ((self.seconds /60), (self.seconds % 60)))
 
-    def _create_widgets(self):
+    def __create_widgets(self):
         """ This function creates some widgets for the timer."""
         # self.labelstr is going to be used as text in the label (which shows the time left).
         # When this variable's value is modified (with the method .set('str')) the label 
