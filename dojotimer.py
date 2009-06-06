@@ -27,7 +27,7 @@ class Clock(object):
         # Create a frame
         self.frame = Frame(master)
         self.frame.pack()
-        
+
 
         # Get the TopLevel window
         self.top = self.frame.winfo_toplevel()
@@ -42,14 +42,14 @@ class Clock(object):
 
         # Some default values
         self.running = False
-        self.default_time = default_time # Tempo padrão (em minutos)
+        self.default_time = default_time # defaul time (in minutes)
         self.seconds = 60 * self.default_time
         self.labelstr.set('%02d:%02d' % ((self.seconds /60), (self.seconds % 60)))
 
     def __create_widgets(self):
         """ This function creates some widgets for the timer."""
         # self.labelstr is going to be used as text in the label (which shows the time left).
-        # When this variable's value is modified (with the method .set('str')) the label 
+        # When this variable's value is modified (with the method .set('str')) the label
         # changes on the fly.
         self.labelstr = StringVar()
         self.label = Label(self.frame, textvariable=self.labelstr, fg='#198931', font=('Helvetica', '48'))
@@ -89,7 +89,7 @@ class Clock(object):
             self.labelstr.set(new_str)
             self.label.after(1000, self.update)
             if self.seconds: self.seconds -= 1
-    
+
     def stop(self):
         self.running = False
 
