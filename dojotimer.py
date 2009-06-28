@@ -34,7 +34,7 @@ class Clock(object):
 
         # Change some of it's attributes
         self.top.title("DojoTimer") # change the title
-        self.top.attributes('-topmost', 1) # make it always on top XXX-Needs testing on windows
+        self.top.attributes('-topmost', 1) # make it always on top
         self.top.resizable(0, 0) # make it unresizeable
 
         # A separate method is responsible for creating the other widgets
