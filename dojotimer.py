@@ -28,13 +28,12 @@ class Clock(object):
         self.frame = Frame(master)
         self.frame.pack()
 
-
         # Get the TopLevel window
         self.top = self.frame.winfo_toplevel()
 
         # Change some of it's attributes
         self.top.title("DojoTimer") # change the title
-        self.top.attributes('-topmost', 1) # make it always on top XXX-Needs testing on windows
+        self.top.attributes('-topmost', 1) # make it always on top
         self.top.resizable(0, 0) # make it unresizeable
 
         # A separate method is responsible for creating the other widgets
@@ -64,6 +63,9 @@ class Clock(object):
 
         self.reset_btn = Button(self.frame, text='Reset', command=self.reset)
         self.reset_btn.pack(side=LEFT)
+
+        self.set_time_btn = Button(self.frame, text='Set time', command=self.set_time)
+        self.set_time_btn.pack(side=LEFT)
 
         self.quit_btn = Button(self.frame, text='Quit', command=self.frame.quit)
         self.quit_btn.pack(side=LEFT)
@@ -100,6 +102,8 @@ class Clock(object):
         new_str = '%02d:%02d' % ((self.seconds /60), (self.seconds % 60))
         self.labelstr.set(new_str)
 
+    def set_time(self):
+        pass
 
 if __name__ == '__main__':
     root = Tk()
