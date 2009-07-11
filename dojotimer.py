@@ -19,6 +19,7 @@
 #
 # If you find any bugs or have any suggestions email: amieiro.flavio@gmail.com
 from Tkinter import *
+import tkSimpleDialog
 
 class Clock(object):
 
@@ -103,7 +104,11 @@ class Clock(object):
         self.labelstr.set(new_str)
 
     def set_time(self):
-        pass
+        try:
+            self.default_time = tkSimpleDialog.askfloat('Set time', 'Specify the time (in minutes)', parent=self.top)
+            self.reset()
+        except TypeError:
+            pass
 
 if __name__ == '__main__':
     root = Tk()
