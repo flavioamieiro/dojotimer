@@ -19,6 +19,7 @@
 #
 # If you find any bugs or have any suggestions email: amieiro.flavio@gmail.com
 from Tkinter import *
+import tkSimpleDialog
 
 class Clock(object):
 
@@ -27,7 +28,6 @@ class Clock(object):
         # Create a frame
         self.frame = Frame(master)
         self.frame.pack()
-
 
         # Get the TopLevel window
         self.top = self.frame.winfo_toplevel()
@@ -65,6 +65,9 @@ class Clock(object):
         self.reset_btn = Button(self.frame, text='Reset', command=self.reset)
         self.reset_btn.pack(side=LEFT)
 
+        self.set_time_btn = Button(self.frame, text='Set time', command=self.set_time)
+        self.set_time_btn.pack(side=LEFT)
+
         self.quit_btn = Button(self.frame, text='Quit', command=self.frame.quit)
         self.quit_btn.pack(side=LEFT)
 
@@ -100,6 +103,12 @@ class Clock(object):
         new_str = '%02d:%02d' % ((self.seconds /60), (self.seconds % 60))
         self.labelstr.set(new_str)
 
+    def set_time(self):
+        try:
+            self.default_time = tkSimpleDialog.askfloat('Set time', 'Specify the time (in minutes)', parent=self.top)
+            self.reset()
+        except TypeError:
+            pass
 
 if __name__ == '__main__':
     root = Tk()
