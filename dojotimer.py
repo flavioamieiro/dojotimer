@@ -44,15 +44,23 @@ class Clock(object):
         self.running = False
         self.default_time = default_time # defaul time (in minutes)
         self.seconds = 60 * self.default_time
-        self.labelstr.set('%02d:%02d' % ((self.seconds /60), (self.seconds % 60)))
+        self.labelstr.set(
+            '%02d:%02d' % ((self.seconds /60), (self.seconds % 60))
+        )
 
     def __create_widgets(self):
         """ This function creates some widgets for the timer."""
-        # self.labelstr is going to be used as text in the label (which shows the time left).
-        # When this variable's value is modified (with the method .set('str')) the label
+        # self.labelstr is going to be used as text in the label
+        # (which shows the time left). When this variable's value
+        # is modified (with the method .set('str')) the label
         # changes on the fly.
         self.labelstr = StringVar()
-        self.label = Label(self.frame, textvariable=self.labelstr, fg='#198931', font=('Helvetica', '48'))
+        self.label = Label(
+            self.frame,
+            textvariable=self.labelstr,
+            fg='#198931',
+            font=('Helvetica', '48')
+        )
         self.label.pack()
 
         # Some buttons
@@ -65,7 +73,11 @@ class Clock(object):
         self.reset_btn = Button(self.frame, text='Reset', command=self.reset)
         self.reset_btn.pack(side=LEFT)
 
-        self.set_time_btn = Button(self.frame, text='Set time', command=self.set_time)
+        self.set_time_btn = Button(
+            self.frame,
+            text = 'Set time',
+            command = self.set_time,
+            )
         self.set_time_btn.pack(side=LEFT)
 
         self.quit_btn = Button(self.frame, text='Quit', command=self.frame.quit)
@@ -83,10 +95,10 @@ class Clock(object):
     def update(self):
         if self.running:
             if 0 < self.seconds <= 30:
-                self.label['fg']='#efbf16'
+                self.label['fg'] = '#efbf16'
             elif self.seconds <= 0:
                 self.top.deiconify()
-                self.label['fg']='#d70505'
+                self.label['fg'] = '#d70505'
                 self.running = False
             new_str = '%02d:%02d' % ((self.seconds / 60), (self.seconds % 60))
             self.labelstr.set(new_str)
@@ -99,13 +111,17 @@ class Clock(object):
     def reset(self):
         self.running = False
         self.seconds = 60 * self.default_time
-        self.label['fg']='#198931'
+        self.label['fg'] = '#198931'
         new_str = '%02d:%02d' % ((self.seconds /60), (self.seconds % 60))
         self.labelstr.set(new_str)
 
     def set_time(self):
         try:
-            self.default_time = tkSimpleDialog.askfloat('Set time', 'Specify the time (in minutes)', parent=self.top)
+            self.default_time = tkSimpleDialog.askfloat(
+                'Set time',
+                'Specify the time (in minutes)',
+                parent=self.top
+            )
             self.reset()
         except TypeError:
             pass
