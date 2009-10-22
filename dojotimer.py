@@ -67,7 +67,7 @@ class Clock(object):
         self.start_btn = Button(self.frame, text="Start", command=self.start)
         self.start_btn.pack(side=LEFT)
 
-        self.stop_btn = Button(self.frame, text='Stop', command=self.stop)
+        self.stop_btn = Button(self.frame, text='Pause', command=self.stop)
         self.stop_btn.pack(side=LEFT)
 
         self.reset_btn = Button(self.frame, text='Reset', command=self.reset)
