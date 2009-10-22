@@ -1,27 +1,37 @@
 #-*- coding: utf-8 -*-
-#
-#
-# DojoTimer - a simple timer for Coding Dojos.
-#
-# Copyright (C) 2008 Flávio Amieiro <amieiro.flavio@gmail.com>
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; version 2 dated June, 1991.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Library General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, see <http://www.gnu.org/licenses/>.
-#
-# If you find any bugs or have any suggestions email: amieiro.flavio@gmail.com
+"""
+
+
+DojoTimer - a simple timer for Coding Dojos.
+
+Copyright (C) 2008 Flávio Amieiro <amieiro.flavio@gmail.com>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; version 2 dated June, 1991.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Library General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, see <http://www.gnu.org/licenses/>.
+
+If you find any bugs or have any suggestions email: amieiro.flavio@gmail.com
+"""
 from Tkinter import *
 import tkSimpleDialog
 
 class Clock(object):
+    """
+    Main class for the app.
+
+    Takes as arguments to __init__:
+    master: the parent window
+    default_time: the desired default time
+
+    """
 
     def __init__(self, master, default_time=1):
 
@@ -84,6 +94,9 @@ class Clock(object):
         self.quit_btn.pack(side=LEFT)
 
     def start(self):
+        """
+        Start the clock
+        """
         if not self.seconds:
             self.top.iconify()
             self.reset()
@@ -93,6 +106,9 @@ class Clock(object):
             self.update()
 
     def update(self):
+        """
+        Update the display
+        """
         if self.running:
             if 0 < self.seconds <= 30:
                 self.label['fg'] = '#efbf16'
@@ -103,12 +119,19 @@ class Clock(object):
             new_str = '%02d:%02d' % ((self.seconds / 60), (self.seconds % 60))
             self.labelstr.set(new_str)
             self.label.after(1000, self.update)
-            if self.seconds: self.seconds -= 1
+            if self.seconds:
+                self.seconds -= 1
 
     def stop(self):
+        """
+        Stop the clock
+        """
         self.running = False
 
     def reset(self):
+        """
+        Stop the clock and reset the time
+        """
         self.running = False
         self.seconds = 60 * self.default_time
         self.label['fg'] = '#198931'
@@ -116,6 +139,10 @@ class Clock(object):
         self.labelstr.set(new_str)
 
     def set_time(self):
+        """
+        Gets user input from a dialog and updates
+        self.default_time according to it
+        """
         try:
             self.default_time = tkSimpleDialog.askfloat(
                 'Set time',
