@@ -103,6 +103,7 @@ class Clock(object):
         if not self.running:
             self.top.iconify()
             self.running = True
+            self.top.title("*DojoTimer*")
             self.update()
 
     def update(self):
@@ -115,7 +116,7 @@ class Clock(object):
             elif self.seconds <= 0:
                 self.top.deiconify()
                 self.label['fg'] = '#d70505'
-                self.running = False
+                self.stop()
             new_str = '%02d:%02d' % ((self.seconds / 60), (self.seconds % 60))
             self.labelstr.set(new_str)
             self.label.after(1000, self.update)
@@ -126,13 +127,14 @@ class Clock(object):
         """
         Stop the clock
         """
+        self.top.title("DojoTimer")
         self.running = False
 
     def reset(self):
         """
         Stop the clock and reset the time
         """
-        self.running = False
+        self.stop()
         self.seconds = 60 * self.default_time
         self.label['fg'] = '#198931'
         new_str = '%02d:%02d' % ((self.seconds /60), (self.seconds % 60))
